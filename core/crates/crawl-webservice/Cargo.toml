@@ -1,0 +1,46 @@
+[package]
+name = "crawl-webservice"
+description = "Crawl web service daemon — RSS reader + Wallhaven wallpaper client"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+crawl-ipc        = { workspace = true }
+
+# Async runtime
+tokio          = { workspace = true, features = ["full"] }
+tokio-util     = { version = "0.7", features = ["codec", "io"] }
+
+# HTTP client
+reqwest        = { version = "0.12", default-features = false, features = ["json", "gzip", "brotli", "rustls-tls", "stream"] }
+
+# RSS parsing
+feed-rs        = "2.1"
+
+# Database
+sqlx           = { version = "0.7", features = ["sqlite", "runtime-tokio", "macros"] }
+
+# Serialisation (IPC protocol)
+serde          = { workspace = true }
+serde_json     = { workspace = true }
+
+# Config file
+toml           = { workspace = true }
+
+# Error handling
+thiserror      = { workspace = true }
+anyhow         = { workspace = true }
+
+# Logging
+tracing        = { workspace = true }
+tracing-subscriber = { workspace = true, features = ["env-filter"] }
+
+# Streams
+futures-util   = { workspace = true }
+
+# Utilities
+uuid           = { version = "1", features = ["v4"] }
+chrono         = { version = "0.4", features = ["serde"] }
+quick-xml      = "0.31"

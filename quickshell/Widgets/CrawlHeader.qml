@@ -1,0 +1,34 @@
+import QtQuick
+import QtQuick.Layouts
+import qs.Common
+
+ColumnLayout {
+  id: root
+
+  property string label: ""
+  property string description: ""
+  property bool enableDescriptionRichText: false
+
+  opacity: enabled ? 1.0 : 0.6
+  spacing: Style.marginXXS
+  Layout.fillWidth: true
+  Layout.bottomMargin: Style.marginM
+
+  CrawlText {
+    text: root.label
+    pointSize: Style.fontSizeXL
+    font.weight: Style.fontWeightSemiBold
+    color: Theme.cPrimary
+    visible: root.label !== ""
+  }
+
+  CrawlText {
+    text: root.description
+    pointSize: Style.fontSizeM
+    color: Theme.cOnSurfaceVariant
+    wrapMode: Text.WordWrap
+    Layout.fillWidth: true
+    visible: root.description !== ""
+    richTextEnabled: root.enableDescriptionRichText
+  }
+}

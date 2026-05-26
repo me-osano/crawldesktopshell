@@ -1,0 +1,40 @@
+[Unit]
+Description=Crawl System Daemon
+Documentation=https://codeberg.org/me-osano/crawl
+After=dbus.socket graphical-session.target
+Wants=dbus.socket
+PartOf=graphical-session.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/crawl-sysd
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5s
+WatchdogSec=60s
+
+Environment=CRAWL_LOG=info
+EnvironmentFile=/etc/crawl/environment
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=crawl
+
+User=crawl
+DynamicUser=yes
+
+# Sandboxing
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/run/crawl
+RestrictSUIDSGID=yes
+MemoryDenyWriteExecute=yes
+RestrictNamespaces=true
+LockPersonality=yes
+RestrictRealtime=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+[Install]
+WantedBy=graphical-session.target

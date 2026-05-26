@@ -1,0 +1,9 @@
+pub mod accounts;
+pub mod config;
+pub mod error;
+pub mod imap;
+pub mod ipc;
+pub mod notify;
+pub mod parser;
+pub mod smtp;
+pub mod store;

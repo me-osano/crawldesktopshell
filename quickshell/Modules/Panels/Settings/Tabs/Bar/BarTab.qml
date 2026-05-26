@@ -1,0 +1,196 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Quickshell
+import qs.Common
+import qs.Services
+import qs.Widgets
+
+ColumnLayout {
+  id: root
+  spacing: 0
+
+  // Helper functions to update arrays immutably
+  function addMonitor(list, name) {
+    const arr = (list || []).slice();
+    if (!arr.includes(name))
+      arr.push(name);
+    return arr;
+  }
+  function removeMonitor(list, name) {
+    return (list || []).filter(function (n) {
+      return n !== name;
+    });
+  }
+
+  // Signal functions for widgets sub-tab (global widgets only).
+  // These intentionally edit Settings.data.bar.widgets (global defaults),
+  // not per-screen overrides. Per-screen editing is handled by MonitorWidgetsConfig.qml.
+  function _addWidgetToSection(widgetId, section) {
+    var newWidget = {
+      "id": widgetId
+    };
+    if (BarWidgetRegistry.widgetHasUserSettings(widgetId)) {
+      var metadata = BarWidgetRegistry.widgetMetadata[widgetId];
+      if (metadata) {
+        Object.keys(metadata).forEach(function (key) {
+          newWidget[key] = metadata[key];
+        });
+      }
+    }
+    Settings.data.bar.widgets[section].push(newWidget);
+    BarService.widgetsRevision++;
+  }
+
+  function _removeWidgetFromSection(section, index) {
+    var widgets = Settings.data.bar.widgets;
+    if (index >= 0 && index < widgets[section].length) {
+      var newArray = widgets[section].slice();
+      var removedWidgets = newArray.splice(index, 1);
+      widgets[section] = newArray;
+      BarService.widgetsRevision++;
+
+      if (removedWidgets[0].id === "ControlCenter" && BarService.lookupWidget("ControlCenter") === undefined) {
+        ToastService.showWarning("Last control center widget removed", "The control center widget has been removed from the bar. To access it from the bar again, you will need to re-add the widget. You can open it with right clicking on the bar too", 6000);
+      }
+    }
+  }
+
+  function _reorderWidgetInSection(section, fromIndex, toIndex) {
+    var widgets = Settings.data.bar.widgets;
+    if (fromIndex >= 0 && fromIndex < widgets[section].length && toIndex >= 0 && toIndex < widgets[section].length) {
+      var newArray = widgets[section].slice();
+      var item = newArray[fromIndex];
+      newArray.splice(fromIndex, 1);
+      newArray.splice(toIndex, 0, item);
+      widgets[section] = newArray;
+      BarService.widgetsRevision++;
+    }
+  }
+
+  // Note: _updateWidgetSettingsInSection does NOT increment revision
+  // because it only changes settings, not widget structure
+  function _updateWidgetSettingsInSection(section, index, settings) {
+    Settings.data.bar.widgets[section][index] = settings;
+  }
+
+  function _moveWidgetBetweenSections(fromSection, index, toSection) {
+    var widgets = Settings.data.bar.widgets;
+    if (index >= 0 && index < widgets[fromSection].length) {
+      var widget = widgets[fromSection][index];
+      var sourceArray = widgets[fromSection].slice();
+      sourceArray.splice(index, 1);
+      widgets[fromSection] = sourceArray;
+      var targetArray = widgets[toSection].slice();
+      targetArray.push(widget);
+      widgets[toSection] = targetArray;
+      BarService.widgetsRevision++;
+      Logger.d("BarTab", "_moveWidgetBetweenSections: revision now", BarService.widgetsRevision);
+    }
+  }
+
+  function getWidgetLocations(widgetId) {
+    if (!BarService)
+      return [];
+    const instances = BarService.getAllRegisteredWidgets();
+    const locations = {};
+    for (var i = 0; i < instances.length; i++) {
+      if (instances[i].widgetId === widgetId) {
+        const section = instances[i].section;
+        if (section === "left")
+          locations["arrow-bar-to-left"] = true;
+        else if (section === "center")
+          locations["layout-columns"] = true;
+        else if (section === "right")
+          locations["arrow-bar-to-right"] = true;
+      }
+    }
+    return Object.keys(locations);
+  }
+
+  function createBadges(locations) {
+    const badges = [];
+    locations.forEach(function (location) {
+      badges.push({
+                    "icon": location,
+                    "color": Theme.cOnSurfaceVariant
+                  });
+    });
+    return badges;
+  }
+
+  function updateAvailableWidgetsModel() {
+    availableWidgets.clear();
+    const widgets = BarWidgetRegistry.getAvailableWidgets();
+    widgets.forEach(entry => {
+                      availableWidgets.append({
+                                                "key": entry,
+                                                "name": BarWidgetRegistry.getWidgetDisplayName(entry),
+                                                "badges": createBadges(getWidgetLocations(entry))
+                                              });
+                    });
+  }
+
+  ListModel {
+    id: availableWidgets
+  }
+
+  Component.onCompleted: {
+    updateAvailableWidgetsModel();
+  }
+
+  Connections {
+    target: BarService
+    function onActiveWidgetsChanged() {
+      updateAvailableWidgetsModel();
+    }
+  }
+
+  CrawlTabBar {
+    id: subTabBar
+    Layout.fillWidth: true
+    Layout.bottomMargin: Style.marginM
+    distributeEvenly: true
+    currentIndex: tabView.currentIndex
+
+    CrawlTabButton {
+      text: "Appearance"
+      tabIndex: 0
+      checked: subTabBar.currentIndex === 0
+    }
+    CrawlTabButton {
+      text: "Widgets"
+      tabIndex: 1
+      checked: subTabBar.currentIndex === 1
+    }
+    CrawlTabButton {
+      text: "Monitors"
+      tabIndex: 2
+      checked: subTabBar.currentIndex === 2
+    }
+  }
+
+  Item {
+    Layout.fillWidth: true
+    Layout.preferredHeight: Style.marginS
+  }
+
+  CrawlTabView {
+    id: tabView
+    currentIndex: subTabBar.currentIndex
+
+    AppearanceSubTab {}
+    WidgetsSubTab {
+      availableWidgets: availableWidgets
+      addWidgetToSection: root._addWidgetToSection
+      removeWidgetFromSection: root._removeWidgetFromSection
+      reorderWidgetInSection: root._reorderWidgetInSection
+      updateWidgetSettingsInSection: root._updateWidgetSettingsInSection
+      moveWidgetBetweenSections: root._moveWidgetBetweenSections
+    }
+    MonitorsSubTab {
+      addMonitor: root.addMonitor
+      removeMonitor: root.removeMonitor
+    }
+  }
+}

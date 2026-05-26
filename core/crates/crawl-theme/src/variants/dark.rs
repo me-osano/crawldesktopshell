@@ -1,0 +1,230 @@
+// ── Catppuccin ──────────────────────────────────────────────────
+// Warm, low contrast, dark
+crate::palette_def!(
+    catppuccin_mocha,
+    "#1e1e2e",
+    "#181825",
+    "#11111b",
+    "#313244",
+    "#45475a",
+    "#585b70",
+    "#6c7086",
+    "#7f849c",
+    "#9399b2",
+    "#cdd6f4",
+    "#bac2de",
+    "#a6adc8",
+    "#f5e0dc",
+    "#f2cdcd",
+    "#f5c2e7",
+    "#cba6f7",
+    "#f38ba8",
+    "#eba0ac",
+    "#fab387",
+    "#f9e2af",
+    "#a6e3a1",
+    "#94e2d5",
+    "#89dceb",
+    "#74c7ec",
+    "#89b4fa",
+    "#b4befe"
+);
+
+// Warm, higher contrast, dark
+crate::palette_def!(
+    catppuccin_frappe,
+    "#303446",
+    "#292c3c",
+    "#232634",
+    "#414559",
+    "#51576d",
+    "#626880",
+    "#737994",
+    "#838ba7",
+    "#949cbb",
+    "#c6d0f5",
+    "#b5bfe2",
+    "#a5adce",
+    "#f2d5cf",
+    "#eebebe",
+    "#f4b8e4",
+    "#ca9ee6",
+    "#e78284",
+    "#ea999c",
+    "#ef9f76",
+    "#e5c890",
+    "#a6d189",
+    "#81c8be",
+    "#85c1dc",
+    "#8caaee",
+    "#8caaee",
+    "#babbf1"
+);
+
+// Warm, medium contrast, dark
+crate::palette_def!(
+    catppuccin_macchiato,
+    "#24273a",
+    "#1e2030",
+    "#181926",
+    "#363a4f",
+    "#494d64",
+    "#5b6078",
+    "#6e738d",
+    "#8087a2",
+    "#939ab7",
+    "#cad3f5",
+    "#b8c0e0",
+    "#a5adcb",
+    "#f4dbd6",
+    "#f0c6c6",
+    "#f5bde6",
+    "#c6a0f6",
+    "#ed8796",
+    "#ee99a0",
+    "#f5a97f",
+    "#eed49f",
+    "#a6da95",
+    "#8bd5ca",
+    "#91d7e3",
+    "#7dc4e4",
+    "#8aadf4",
+    "#b7bdf8"
+);
+
+// ── Nord ─────────────────────────────────────────────────────────
+// Cold, arctic-inspired. Single dark variant with frost accents.
+crate::palette_def!(
+    nord, "#2e3440", "#3b4252", "#2e3440", "#3b4252", "#434c5e", "#4c566a", "#4c566a", "#5e81ac",
+    "#81a1c1", "#d8dee9", "#e5e9f0", "#eceff4", "#d8dee9", "#bf616a", "#b48ead", "#b48ead",
+    "#bf616a", "#bf616a", "#d08770", "#ebcb8b", "#a3be8c", "#8fbcbb", "#88c0d0", "#81a1c1",
+    "#5e81ac", "#81a1c1"
+);
+
+// ── Tokyo Night ───────────────────────────────────────────────────
+// Deep blue-black background with vibrant electric accents.
+crate::palette_def!(
+    tokyo_night,
+    "#1a1b26",
+    "#16161e",
+    "#13131d",
+    "#1f2335",
+    "#24283b",
+    "#2f3344",
+    "#363b54",
+    "#444b6a",
+    "#565f89",
+    "#a9b1d6",
+    "#9aa5ce",
+    "#8a96bd",
+    "#a9b1d6",
+    "#f7768e",
+    "#bb9af7",
+    "#bb9af7",
+    "#f7768e",
+    "#f7768e",
+    "#ff9e64",
+    "#e0af68",
+    "#9ece6a",
+    "#1abc9c",
+    "#7dcfff",
+    "#7dcfff",
+    "#7aa2f7",
+    "#bb9af7"
+);
+
+// ── Gruvbox Dark ─────────────────────────────────────────────────
+// Warm, retro theme with earthy tones and high contrast.
+crate::palette_def!(
+    gruvbox_dark,
+    "#282828",
+    "#1d2021",
+    "#1d2021",
+    "#3c3836",
+    "#504945",
+    "#665c54",
+    "#7c6f64",
+    "#928374",
+    "#a89984",
+    "#ebdbb2",
+    "#d5c4a1",
+    "#bdae93",
+    "#ebdbb2",
+    "#cc241d",
+    "#b16286",
+    "#b16286",
+    "#cc241d",
+    "#cc241d",
+    "#d65d0e",
+    "#d79921",
+    "#98971a",
+    "#689d6a",
+    "#689d6a",
+    "#458588",
+    "#458588",
+    "#b16286"
+);
+
+// ── Kanagawa Dark ──────────────────────────────────────────────────
+// Japanese-inspired, muted dark with soft earthy accents.
+crate::palette_def!(
+    kanagawa_dark,
+    "#1f1f28",
+    "#16161d",
+    "#12121a",
+    "#2a2a37",
+    "#363646",
+    "#424250",
+    "#4e4e5c",
+    "#5a5a68",
+    "#6a6a78",
+    "#dcd7ba",
+    "#c8c2a6",
+    "#b4ae94",
+    "#dcd7ba",
+    "#c34043",
+    "#957fb8",
+    "#957fb8",
+    "#c34043",
+    "#e46876",
+    "#ffa066",
+    "#e6c384",
+    "#98bb6c",
+    "#7e9cd8",
+    "#7fb4ca",
+    "#6a9589",
+    "#7fb4ca",
+    "#957fb8"
+);
+
+// ── Rose Pine Dark ────────────────────────────────────────────────
+// Soft, muted pink/rose tones. Warm and cozy.
+crate::palette_def!(
+    rose_pine_dark,
+    "#191724",
+    "#1f1d2e",
+    "#26233a",
+    "#26233a",
+    "#2a273f",
+    "#2e2a40",
+    "#353147",
+    "#403d52",
+    "#524f67",
+    "#e0def4",
+    "#c4c1d8",
+    "#a7a4bd",
+    "#e0def4",
+    "#eb6f92",
+    "#ebbcba",
+    "#c4a7e7",
+    "#eb6f92",
+    "#eb6f92",
+    "#f6c177",
+    "#f6c177",
+    "#31748f",
+    "#9ccfd8",
+    "#9ccfd8",
+    "#3e8fb0",
+    "#31748f",
+    "#c4a7e7"
+);

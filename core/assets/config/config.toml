@@ -1,0 +1,92 @@
+# crawl configuration file
+# Location: etc/crawl/config.toml
+
+# === Daemon ===
+[daemon]
+log_level = "info"
+socket_path = "$XDG_RUNTIME_DIR/crawl.sock"
+
+# === Audio ===
+[audio]
+server = ""
+app_name = "crawl"
+
+# === Bluetooth ===
+[bluetooth]
+auto_enable = false         # power adapter on at daemon start
+scan_timeout_secs = 30      # 0 = no timeout (infinite scan)
+
+# === Brightness ===
+[brightness]
+min_percent = 1.0
+max_percent = 100.0
+device = ""
+
+# === Network ===
+[network]
+auto_enable = false
+wifi_scan_on_start = false
+wifi_scan_finish_delay_ms = 30000  # ms to wait after scan before reading results
+hotspot_backend = "networkmanager"    # networkmanager | hostapd
+hotspot_virtual_iface = true
+
+# === Sysmon (system monitoring) ===
+[sysmon]
+poll_interval_ms = 1000
+cpu_spike_threshold = 90.0    # trigger CpuSpike event above this %
+mem_pressure_threshold = 85.0 # trigger MemPressure event above this %
+cpu_change_threshold = 2.0    # minimum CPU change to emit update
+mem_change_threshold = 1.0    # minimum memory change to emit update
+net_change_threshold = 1024   # minimum bytes delta to emit update
+
+# === Processes ===
+[processes]
+sort_by = "cpu"            # default sort: cpu | mem | pid | name
+top = 20                   # default number of top processes to return
+include_cmd = false        # include command lines (expensive)
+top_interval_ms = 1000     # refresh top-N every 1s
+full_interval_ms = 5000    # full process scan every 5s
+
+# === Theme ===
+[theme]
+cache_dir = "$XDG_CACHE_HOME/crawl"
+
+# Initial theme config (written to $cache_dir/theme.toml on first start)
+[theme.theme]
+variant = "mocha"                        # mocha | latte | frappe | macchiato | nord |
+                                         # tokyo-night | gruvbox | kanagawa | rose-pine |
+                                         # dynamic { seed, mode, variant } | custom
+accent = "mauve"                         # rosewater | flamingo | pink | mauve | red |
+                                         # maroon | peach | yellow | green | teal | sky |
+                                         # sapphire | blue | lavender | #hexcolor
+
+# Dynamic variant fields (persisted automatically after --generate/--image)
+# [theme.theme.variant]
+# type = "dynamic"
+# seed = "#cba6f7"
+# mode = "dark"
+# scheme = "tonal_spot"        # tonal_spot | content | monochrome | vibrant | faithful |
+#                              # fruit_salad | rainbow | muted
+
+[theme.theme.cursor]
+theme = "catppuccin-mocha-dark-cursors"
+size = 24
+
+[theme.theme.gtk]
+prefer_dark = true
+
+# === Notifications ===
+[notifications]
+enabled = true
+max_popups = 5
+max_history = 100
+respect_expire_timeout = false
+low_urgency_duration_ms = 3000
+normal_urgency_duration_ms = 8000
+critical_urgency_duration_ms = 15000
+save_low = true
+save_normal = true
+save_critical = true
+# Optional path overrides (default: XDG cache/config dirs)
+# history_file = "$XDG_CACHE_HOME/crawl/notifications.json"
+# rules_file = "$XDG_CONFIG_HOME/crawlv/notification-rules.json"

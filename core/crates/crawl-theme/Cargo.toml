@@ -1,0 +1,24 @@
+[package]
+name = "crawl-theme"
+description = "Theme management for Crawl — palette definitions, config persistence, system integration"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+crawl-ipc   = { workspace = true }
+serde       = { workspace = true, features = ["derive"] }
+serde_json  = { workspace = true }
+toml        = { workspace = true }
+thiserror   = { workspace = true }
+tracing     = { workspace = true }
+dirs        = "6"
+image       = "0.25"
+
+[target.'cfg(unix)'.dependencies]
+zbus = { version = "4", features = ["tokio"], optional = true }
+
+[features]
+default = []
+gtk = ["zbus"]

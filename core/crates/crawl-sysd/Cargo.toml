@@ -1,0 +1,50 @@
+[package]
+name = "crawl-sysd"
+description = "Crawl system daemon — JSON over Unix socket"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "crawl-sysd"
+path = "src/main.rs"
+
+[dependencies]
+crawl-ipc        = { workspace = true }
+tokio            = { workspace = true }
+serde            = { workspace = true }
+serde_json       = { workspace = true }
+thiserror        = { workspace = true }
+tracing          = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow           = { workspace = true }
+futures-util     = { workspace = true }
+libc             = { workspace = true }
+figment          = { workspace = true }
+async-trait      = { workspace = true }
+libsystemd       = { workspace = true }
+
+# Audio
+libpulse-binding = "2"
+
+# Bluetooth [Bluetooth management via BlueZ D-Bus (bluer)]
+bluer = { version = "0.17", features = ["full"] }
+
+# Network [Network management via NetworkManager D-Bus]
+zbus = { version = "4", features = ["tokio"] }
+regex = "1"
+
+# Scheduler [Central scheduler with jitter for Crawl domains]
+fastrand = "2"
+
+# Theme
+crawl-theme = { workspace = true }
+
+# System monitoring
+sysinfo = "0.33"
+once_cell = "1"
+
+[features]
+default = []
+sync = []
