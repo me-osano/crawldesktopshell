@@ -13,7 +13,7 @@ pub mod types;
 
 pub use client::CrawlClient;
 pub use error::{CrawlError, CrawlResult, ErrorEnvelope};
-pub use events::{CrawlEvent, RssEvent, ThemeEvent, WallhavenEvent};
+pub use events::{ClipboardEvent, CrawlEvent, RssEvent, ThemeEvent, WallhavenEvent};
 pub use protocol::{CrawlRequest, CrawlResponse, Error, EventMessage, error_code, now_ms};
 pub use router::{IpcRouter, RouteError};
 pub use server::{EventReceiver, EventSender, IpcServer, RequestDispatcher};

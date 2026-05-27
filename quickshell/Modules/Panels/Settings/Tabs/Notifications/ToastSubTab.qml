@@ -9,6 +9,26 @@ ColumnLayout {
   spacing: Style.marginL
   Layout.fillWidth: true
 
+  CrawlComboBox {
+    label: "Position"
+    description: "Where toast messages appear on screen."
+    model: [
+      { "key": "top", "name": "Top center" },
+      { "key": "top_left", "name": "Top left" },
+      { "key": "top_right", "name": "Top right" },
+      { "key": "bottom", "name": "Bottom center" },
+      { "key": "bottom_left", "name": "Bottom left" },
+      { "key": "bottom_right", "name": "Bottom right" }
+    ]
+    currentKey: Settings.data.notifications.toastLocation || "top"
+    onSelected: key => Settings.data.notifications.toastLocation = key
+    defaultValue: Settings.getDefaultValue("notifications.toastLocation")
+  }
+
+  CrawlDivider {
+    Layout.fillWidth: true
+  }
+
   CrawlCheckbox {
     Layout.fillWidth: true
     label: "Media"

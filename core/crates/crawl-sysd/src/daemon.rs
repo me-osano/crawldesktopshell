@@ -17,6 +17,7 @@ use crate::state::{AppState, SharedState};
 use crate::services::audio::AudioService;
 use crate::services::bluetooth::BluetoothService;
 use crate::services::brightness::BrightnessService;
+use crate::services::clipboard::ClipboardService;
 use crate::services::idle::IdleService;
 use crate::services::models::ServiceRegistry;
 use crate::services::network::NetworkService;
@@ -90,6 +91,9 @@ impl Daemon {
             .await;
         registry
             .register(Arc::new(NotificationService::new(state.clone())))
+            .await;
+        registry
+            .register(Arc::new(ClipboardService::new(state.clone())))
             .await;
     }
 

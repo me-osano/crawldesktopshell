@@ -61,12 +61,5 @@ ColumnLayout {
     onEditingFinished: Settings.data.appLauncher.customLaunchPrefix = text
   }
 
-  CrawlTextInput {
-    label: "Annotation tool"
-    description: "Command to run when clicking the annotate button in clipboard history. The image will be piped to this command."
-    Layout.fillWidth: true
-    text: Settings.data.appLauncher.screenshotAnnotationTool
-    placeholderText: "e.g. 'gradia', 'satty -f -'"
-    onEditingFinished: Settings.data.appLauncher.screenshotAnnotationTool = text
-  }
+
 }

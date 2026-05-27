@@ -376,12 +376,7 @@ Singleton {
 
     // applauncher
     property JsonObject appLauncher: JsonObject {
-      property bool enableClipboardHistory: false
       property bool autoPasteClipboard: false
-      property bool enableClipPreview: true
-      property bool clipboardWrapText: true
-      property string clipboardWatchTextCommand: "wl-paste --type text --watch cliphist store"
-      property string clipboardWatchImageCommand: "wl-paste --type image --watch cliphist store"
       property string position: "center"  // Position: center, top_left, top_right, bottom_left, bottom_right, bottom_center, top_center
       property list<string> pinnedApps: []
       property bool useApp2Unit: false
@@ -399,7 +394,6 @@ Singleton {
       property bool enableWindowsSearch: true
       property bool enableSessionSearch: true
       property bool ignoreMouseInput: false
-      property string screenshotAnnotationTool: ""
       property bool overviewLayer: false
       property string density: "default" // "compact", "default", "comfortable"
     }
@@ -593,16 +587,7 @@ Singleton {
       property string location: "top_right"
       property bool overlayLayer: true
       property real backgroundOpacity: 1.0
-      property bool respectExpireTimeout: false
-      property int lowUrgencyDuration: 3
-      property int normalUrgencyDuration: 8
-      property int criticalUrgencyDuration: 15
       property bool clearDismissed: true
-      property JsonObject saveToHistory: JsonObject {
-        property bool low: true
-        property bool normal: true
-        property bool critical: true
-      }
       property JsonObject sounds: JsonObject {
         property bool enabled: false
         property real volume: 0.5
@@ -612,6 +597,7 @@ Singleton {
         property string lowSoundFile: ""
         property string excludedApps: "discord,firefox,chrome,chromium,edge"
       }
+      property string toastLocation: "top"
       property bool enableMediaToast: false
       property bool enableKeyboardLayoutToast: true
       property bool enableBatteryToast: true

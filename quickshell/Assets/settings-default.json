@@ -211,12 +211,7 @@
     "favorites": []
   },
   "appLauncher": {
-    "enableClipboardHistory": false,
     "autoPasteClipboard": false,
-    "enableClipPreview": true,
-    "clipboardWrapText": true,
-    "clipboardWatchTextCommand": "wl-paste --type text --watch cliphist store",
-    "clipboardWatchImageCommand": "wl-paste --type image --watch cliphist store",
     "position": "center",
     "pinnedApps": [],
     "useApp2Unit": false,
@@ -232,7 +227,6 @@
     "enableWindowsSearch": true,
     "enableSessionSearch": true,
     "ignoreMouseInput": false,
-    "screenshotAnnotationTool": "",
     "overviewLayer": false,
     "density": "default"
   },
@@ -408,16 +402,7 @@
     "location": "top_right",
     "overlayLayer": true,
     "backgroundOpacity": 1,
-    "respectExpireTimeout": false,
-    "lowUrgencyDuration": 3,
-    "normalUrgencyDuration": 8,
-    "criticalUrgencyDuration": 15,
     "clearDismissed": true,
-    "saveToHistory": {
-      "low": true,
-      "normal": true,
-      "critical": true
-    },
     "sounds": {
       "enabled": false,
       "volume": 0.5,
@@ -427,6 +412,7 @@
       "lowSoundFile": "",
       "excludedApps": "discord,firefox,chrome,chromium,edge"
     },
+    "toastLocation": "top",
     "enableMediaToast": false,
     "enableKeyboardLayoutToast": true,
     "enableBatteryToast": true

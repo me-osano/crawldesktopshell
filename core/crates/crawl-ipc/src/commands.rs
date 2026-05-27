@@ -221,12 +221,6 @@ pub enum CrawlCommand {
     NotificationSetRules {
         rules_json: String,
     },
-    NotificationGetSoundState,
-    NotificationSetSoundState {
-        enabled: bool,
-        volume: f32,
-    },
-
     // --- Mail -----
     ListAccounts,
     AddAccount(AddAccount),
@@ -300,6 +294,30 @@ pub enum CrawlCommand {
     RssExportOpml,
     RssSetEnabled {
         enabled: bool,
+    },
+
+    // --- Clipboard -----
+    ClipboardList,
+    ClipboardGetContent {
+        id: u64,
+    },
+    ClipboardCopy {
+        id: u64,
+    },
+    ClipboardDelete {
+        id: u64,
+    },
+    ClipboardWipe,
+    ClipboardPin {
+        id: u64,
+        pinned: bool,
+    },
+    ClipboardPasteText {
+        text: String,
+    },
+    ClipboardSet {
+        text: String,
+        mime: String,
     },
 
     // --- Wallhaven -----

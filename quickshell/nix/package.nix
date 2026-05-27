@@ -4,7 +4,6 @@
   runtimeDeps ? [
     brightnessctl
     cava
-    cliphist
     ddcutil
     wlsunset
     wl-clipboard
@@ -21,7 +20,6 @@
   # runtime deps
   brightnessctl,
   cava,
-  cliphist,
   ddcutil,
   wlsunset,
   wl-clipboard,

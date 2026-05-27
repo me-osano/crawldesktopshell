@@ -1,6 +1,7 @@
 mod audio;
 mod bluetooth;
 mod brightness;
+mod clipboard;
 mod config;
 mod daemon;
 mod idle;

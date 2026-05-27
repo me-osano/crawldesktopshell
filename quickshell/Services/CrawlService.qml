@@ -143,6 +143,7 @@ Singleton {
       case "rss":         root.rssChanged(data); break
       case "wallhaven":   root.wallhavenChanged(data); break
       case "mail":        root.mailChanged(data); break
+      case "clipboard":   root.clipboardChanged(data); break
       default:            root.unknownEvent(domain, data); break
     }
   }
@@ -163,6 +164,7 @@ Singleton {
   signal rssChanged(var data)
   signal wallhavenChanged(var data)
   signal mailChanged(var data)
+  signal clipboardChanged(var data)
   signal unknownEvent(string domain, var data)
 
   // ── Convenience wrappers ───────────────────────────────────────────────
@@ -379,11 +381,37 @@ Singleton {
     root.sendRequest("NotificationSetRules", { rules_json: rulesJson }, callback || (() => {}))
   }
 
-  function notificationGetSoundState(callback) {
-    root.sendRequest("NotificationGetSoundState", {}, callback || (() => {}))
+  // ── Clipboard ───────────────────────────────────────────────────────────
+  function clipboardList(callback) {
+    root.sendRequest("ClipboardList", {}, callback || (() => {}))
   }
 
-  function notificationSetSoundState(enabled, volume, callback) {
-    root.sendRequest("NotificationSetSoundState", { enabled: enabled, volume: volume }, callback || (() => {}))
+  function clipboardGetContent(id, callback) {
+    root.sendRequest("ClipboardGetContent", { id: id }, callback || (() => {}))
   }
+
+  function clipboardCopy(id, callback) {
+    root.sendRequest("ClipboardCopy", { id: id }, callback || (() => {}))
+  }
+
+  function clipboardDelete(id, callback) {
+    root.sendRequest("ClipboardDelete", { id: id }, callback || (() => {}))
+  }
+
+  function clipboardWipe(callback) {
+    root.sendRequest("ClipboardWipe", {}, callback || (() => {}))
+  }
+
+  function clipboardPin(id, callback) {
+    root.sendRequest("ClipboardPin", { id: id }, callback || (() => {}))
+  }
+
+  function clipboardPasteText(text, callback) {
+    root.sendRequest("ClipboardPasteText", { text: text }, callback || (() => {}))
+  }
+
+  function clipboardSet(text, mime, callback) {
+    root.sendRequest("ClipboardSet", { text: text, mime: mime || "text/plain" }, callback || (() => {}))
+  }
+
 }

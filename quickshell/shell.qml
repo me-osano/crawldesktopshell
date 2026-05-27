@@ -95,11 +95,6 @@ ShellRoot {
           CustomButtonIPCService.init();
           IPCService.init(screenDetector);
 
-          // Force ClipboardService initialization so clipboard watchers
-          // start immediately instead of waiting for first launcher open
-          if (Settings.data.appLauncher.enableClipboardHistory) {
-            ClipboardService.checkCliphistAvailability();
-          }
         });
 
         delayedInitTimer.running = true;

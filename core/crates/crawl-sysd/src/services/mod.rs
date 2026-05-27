@@ -1,6 +1,7 @@
 pub mod audio;
 pub mod bluetooth;
 pub mod brightness;
+pub mod clipboard;
 pub mod daemon;
 pub mod diagnostics;
 pub mod idle;

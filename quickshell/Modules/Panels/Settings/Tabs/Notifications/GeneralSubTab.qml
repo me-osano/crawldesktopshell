@@ -13,18 +13,31 @@ ColumnLayout {
 
   property var addMonitor
   property var removeMonitor
+  property var _policy: null
+
+  Component.onCompleted: {
+    if (typeof CrawlService !== "undefined" && CrawlService && CrawlService.connected) {
+      CrawlService.notificationGetPolicy(function (policy) {
+        root._policy = policy;
+      });
+    }
+  }
 
   CrawlToggle {
     label: "Enable notifications"
-    description: "Enable or disable the notification daemon, requires a restart of CrawlDS shell."
-    checked: Settings.data.notifications.enabled !== false
-    onToggled: checked => Settings.data.notifications.enabled = checked
+    description: "Enable or disable the notification daemon."
+    checked: root._policy ? root._policy.enabled : true
+    onToggled: checked => {
+      if (!root._policy) return;
+      root._policy.enabled = checked;
+      CrawlService.notificationSetPolicy(root._policy);
+    }
     defaultValue: Settings.getDefaultValue("notifications.enabled")
   }
 
   ColumnLayout {
     spacing: Style.marginL
-    enabled: Settings.data.notifications.enabled
+    enabled: root._policy ? root._policy.enabled : true
 
     CrawlComboBox {
       label: "Density"

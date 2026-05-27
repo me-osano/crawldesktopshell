@@ -21,14 +21,9 @@ ColumnLayout {
       checked: subTabBar.currentIndex === 0
     }
     CrawlTabButton {
-      text: "Clipboard"
+      text: "Execute"
       tabIndex: 1
       checked: subTabBar.currentIndex === 1
-    }
-    CrawlTabButton {
-      text: "Execute"
-      tabIndex: 2
-      checked: subTabBar.currentIndex === 2
     }
   }
 
@@ -42,7 +37,6 @@ ColumnLayout {
     currentIndex: subTabBar.currentIndex
 
     GeneralSubTab {}
-    ClipboardSubTab {}
     ExecuteSubTab {}
   }
 }

@@ -53,6 +53,8 @@
             udev
             libgit2
             libsoup_3
+            pulseaudio
+            pulseaudio.dev
             # QML tooling
             qt6.qtdeclarative
             qt6.qttools
@@ -64,6 +66,7 @@
             pkgs.udev
             pkgs.libgit2
             pkgs.libsoup_3
+            pkgs.pulseaudio.dev
           ];
 
           RUST_BACKTRACE = 1;

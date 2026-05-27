@@ -828,6 +828,28 @@ pub struct IdleStatus {
     pub reason: String,
 }
 
+// ── Clipboard ─────────
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ClipEntry {
+    pub id: u64,
+    pub content: String,
+    pub mime: String,
+    pub preview: String,
+    pub timestamp_ms: u64,
+    pub is_image: bool,
+    pub is_pinned: bool,
+    pub size: u64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ClipContent {
+    pub content: String,
+    pub mime: String,
+    pub data_base64: Option<String>,
+    pub size: u64,
+}
+
 // ── Wallpaper ─────────
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]

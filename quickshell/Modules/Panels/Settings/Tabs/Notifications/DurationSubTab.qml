@@ -1,7 +1,9 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Quickshell
 import qs.Common
+import qs.Services
 import qs.Widgets
 
 ColumnLayout {
@@ -10,11 +12,25 @@ ColumnLayout {
   Layout.fillWidth: true
   enabled: Settings.data.notifications.enabled
 
+  property var _policy: null
+
+  Component.onCompleted: {
+    if (typeof CrawlService !== "undefined" && CrawlService && CrawlService.connected) {
+      CrawlService.notificationGetPolicy(function (policy) {
+        root._policy = policy;
+      });
+    }
+  }
+
   CrawlToggle {
     label: "Respect expire timeout"
     description: "Use the expire timeout set in the notification."
-    checked: Settings.data.notifications.respectExpireTimeout
-    onToggled: checked => Settings.data.notifications.respectExpireTimeout = checked
+    checked: root._policy ? root._policy.respect_expire_timeout : false
+    onToggled: checked => {
+      if (!root._policy) return;
+      root._policy.respect_expire_timeout = checked;
+      CrawlService.notificationSetPolicy(root._policy);
+    }
     defaultValue: Settings.getDefaultValue("notifications.respectExpireTimeout")
   }
 
@@ -26,9 +42,13 @@ ColumnLayout {
     to: 30
     stepSize: 1
     showReset: true
-    value: Settings.data.notifications.lowUrgencyDuration
-    onMoved: value => Settings.data.notifications.lowUrgencyDuration = value
-    text: Settings.data.notifications.lowUrgencyDuration + "s"
+    value: root._policy ? (root._policy.low_urgency_duration_ms / 1000) : 3
+    onMoved: value => {
+      if (!root._policy) return;
+      root._policy.low_urgency_duration_ms = value * 1000;
+      CrawlService.notificationSetPolicy(root._policy);
+    }
+    text: root._policy ? (root._policy.low_urgency_duration_ms / 1000) + "s" : "3s"
     defaultValue: Settings.getDefaultValue("notifications.lowUrgencyDuration")
   }
 
@@ -40,9 +60,13 @@ ColumnLayout {
     to: 30
     stepSize: 1
     showReset: true
-    value: Settings.data.notifications.normalUrgencyDuration
-    onMoved: value => Settings.data.notifications.normalUrgencyDuration = value
-    text: Settings.data.notifications.normalUrgencyDuration + "s"
+    value: root._policy ? (root._policy.normal_urgency_duration_ms / 1000) : 8
+    onMoved: value => {
+      if (!root._policy) return;
+      root._policy.normal_urgency_duration_ms = value * 1000;
+      CrawlService.notificationSetPolicy(root._policy);
+    }
+    text: root._policy ? (root._policy.normal_urgency_duration_ms / 1000) + "s" : "8s"
     defaultValue: Settings.getDefaultValue("notifications.normalUrgencyDuration")
   }
 
@@ -54,9 +78,13 @@ ColumnLayout {
     to: 30
     stepSize: 1
     showReset: true
-    value: Settings.data.notifications.criticalUrgencyDuration
-    onMoved: value => Settings.data.notifications.criticalUrgencyDuration = value
-    text: Settings.data.notifications.criticalUrgencyDuration + "s"
+    value: root._policy ? (root._policy.critical_urgency_duration_ms / 1000) : 15
+    onMoved: value => {
+      if (!root._policy) return;
+      root._policy.critical_urgency_duration_ms = value * 1000;
+      CrawlService.notificationSetPolicy(root._policy);
+    }
+    text: root._policy ? (root._policy.critical_urgency_duration_ms / 1000) + "s" : "15s"
     defaultValue: Settings.getDefaultValue("notifications.criticalUrgencyDuration")
   }
 }

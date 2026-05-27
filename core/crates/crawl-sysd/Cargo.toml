@@ -41,6 +41,10 @@ fastrand = "2"
 # Theme
 crawl-theme = { workspace = true }
 
+# Clipboard
+wl-clipboard-rs = "0.9"
+sqlx = { version = "0.7", features = ["sqlite", "runtime-tokio", "macros"] }
+
 # System monitoring
 sysinfo = "0.33"
 once_cell = "1"

@@ -35,7 +35,7 @@ Item {
   property real pressGlobalX: 0
   property real pressGlobalY: 0
   property bool isSwiping: false
-  readonly property string location: Settings.data.notifications?.location || "top_right"
+  readonly property string location: Settings.data.notifications?.toastLocation || "top"
   readonly property bool isLeft: location.endsWith("_left")
   readonly property bool isRight: location.endsWith("_right")
   readonly property bool useVerticalSwipe: location === "bottom" || location === "top"

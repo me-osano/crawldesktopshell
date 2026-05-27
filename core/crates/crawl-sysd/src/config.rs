@@ -18,6 +18,7 @@ pub struct Config {
     pub sysmon: SysmonConfig,
     pub theme: ThemeConfig,
     pub notifications: NotificationsConfig,
+    pub clipboard: ClipboardConfig,
 }
 
 impl Config {
@@ -49,6 +50,7 @@ impl Default for Config {
             sysmon: SysmonConfig::default(),
             theme: ThemeConfig::default(),
             notifications: NotificationsConfig::default(),
+            clipboard: ClipboardConfig::default(),
         }
     }
 }
@@ -372,6 +374,30 @@ impl Default for NotificationsConfig {
             history_file: None,
             state_file: None,
             rules_file: None,
+        }
+    }
+}
+
+// === Clipboard configuration types ===
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ClipboardConfig {
+    pub enabled: bool,
+    pub history_size: usize,
+    pub poll_interval_ms: u64,
+    pub max_entry_size: u64,
+    pub persistent: bool,
+    pub watch_primary: bool,
+}
+
+impl Default for ClipboardConfig {
+    fn default() -> Self {
+        Self {
+            enabled: true,
+            history_size: 200,
+            poll_interval_ms: 200,
+            max_entry_size: 5 * 1024 * 1024,
+            persistent: true,
+            watch_primary: false,
         }
     }
 }

@@ -22,6 +22,7 @@ pub enum CrawlEvent {
     Wallhaven(WallhavenEvent),
     Wallpaper(WallpaperEvent),
     Theme(ThemeEvent),
+    Clipboard(ClipboardEvent),
 }
 
 // ---- Audio ---------
@@ -267,6 +268,16 @@ pub enum MailEvent {
         attachment_id: String,
         dest_path: String,
     },
+}
+
+// ---- Clipboard ----
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "event", rename_all = "snake_case")]
+pub enum ClipboardEvent {
+    Changed { entry: crate::types::ClipEntry },
+    Deleted { id: u64 },
+    Cleared,
+    Pinned { id: u64, pinned: bool },
 }
 
 // ---- Notifications ----

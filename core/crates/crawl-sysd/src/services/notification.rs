@@ -123,12 +123,6 @@ impl Service for NotificationService {
                     Err(e) => error_response(id, e),
                 }
             }
-            "NotificationGetSoundState" => {
-                CrawlResponse::success(id, serde_json::json!({"enabled": false, "volume": 0.5}))
-            }
-            "NotificationSetSoundState" => {
-                CrawlResponse::success(id, serde_json::json!({"ok": true}))
-            }
             _ => return None,
         };
 

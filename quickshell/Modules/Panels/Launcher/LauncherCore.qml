@@ -416,7 +416,7 @@ Rectangle {
       const provider = item.provider || currentProvider;
 
       // Check if auto-paste is enabled and provider/item supports it
-      if (Settings.data.appLauncher.autoPasteClipboard && provider && provider.supportsAutoPaste && item.autoPasteText) {
+      if (provider && provider.supportsAutoPaste && item.autoPasteText) {
         if (item.onAutoPaste)
           item.onAutoPaste();
         closeImmediately();
@@ -539,16 +539,6 @@ Rectangle {
     Component.onCompleted: {
       registerProvider(this);
       Logger.d("Launcher", "Registered: ApplicationsProvider");
-    }
-  }
-
-  ClipboardProvider {
-    id: clipProvider
-    Component.onCompleted: {
-      if (Settings.data.appLauncher.enableClipboardHistory) {
-        registerProvider(this);
-        Logger.d("Launcher", "Registered: ClipboardProvider");
-      }
     }
   }
 

@@ -14,6 +14,7 @@ import qs.Modules.Panels.Audio
 import qs.Modules.Panels.Battery
 import qs.Modules.Panels.Bluetooth
 import qs.Modules.Panels.Brightness
+import qs.Modules.Panels.Clipboard
 import qs.Modules.Panels.Clock
 import qs.Modules.Panels.ControlCenter
 import qs.Modules.Panels.Dock
@@ -324,6 +325,12 @@ PanelWindow {
     BrightnessPanel {
       id: brightnessPanel
       objectName: "brightnessPanel-" + (root.screen?.name || "unknown")
+      screen: root.screen
+    }
+
+    ClipboardPanel {
+      id: clipboardPanel
+      objectName: "clipboardPanel-" + (root.screen?.name || "unknown")
       screen: root.screen
     }
 
